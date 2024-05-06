@@ -1,24 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-interface Book {
-  id: string;
-  name: string;
-}
-interface FetchBooksResponse {
-  count: number;
-  results: Book[];
-}
-const BookGrid = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [error, setError] = useState("");
+import useBook from "../hooks/useBook";
 
-  useEffect(() => {
-    apiClient
-      .get<FetchBooksResponse>("/games")
-      .then((res) => setBooks(res.data.results))
-      .catch((err) => setError(err.message));
-  });
+const BookGrid = () => {
+  const { books, error } = useBook();
+
   return (
     <>
       {error && <span>{error}</span>}
