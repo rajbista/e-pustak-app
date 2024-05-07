@@ -1,101 +1,49 @@
-// "use client";
-// import { ReactNode, useState } from "react";
-// import { ThemeContext } from "../contexts/ThemeContext";
-
-// type Theme = "light" | "dark";
-
-// interface Props {
-//   children: ReactNode;
-// }
-
-// export const ThemeProvider = ({ children }: Props) => {
-//   const [theme, setTheme] = useState<Theme>(() => {
-//     const savedTheme = localStorage.getItem("theme");
-//     return (savedTheme as Theme) || "dark";
-//   });
-
-//   const toggleTheme = () => {
-//     const newTheme = theme === "light" ? "dark" : "light";
-//     console.log("______TOGGLE THEM", newTheme);
-
-//     setTheme(newTheme);
-//     localStorage.setItem("theme", newTheme);
-//   };
-
-//   const value = { theme, toggleTheme };
-
-//   return (
-//     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-//   );
-// };
-
-//ThemeContext.js
-// source: https://plainenglish.io/blog/light-and-dark-mode-in-react-web-application-with-tailwind-css-89674496b942
-
 "use client";
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { Theme, ThemePanel } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
+import { createContext } from "react";
 
-const getInitialTheme = () => {
-  if (typeof window !== "undefined" && window.localStorage) {
-    const storedPrefs = window.localStorage.getItem("color-theme");
-    if (typeof storedPrefs === "string") {
-      return storedPrefs;
-    }
+type Theme = "light" | "dark";
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
 
-    const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    if (userMedia.matches) {
-      return "dark";
-    }
-  }
-
-  return "light"; // light theme as the default;
+const defaultTheme: ThemeContextType = {
+  theme: "dark",
+  toggleTheme: () => {},
 };
-
-type ProviderValue = {
-  theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const defaultContextValue: ProviderValue = {
-  theme: getInitialTheme(),
-  setTheme: () => {
-    return;
-  },
-};
-export const ThemeContext = createContext<ProviderValue>(defaultContextValue);
+export const ThemeContext = createContext<ThemeContextType>(defaultTheme);
 
 interface Props {
-  initialTheme: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }
-export const ThemeProvider = ({ initialTheme, children }: Props) => {
-  const [theme, setTheme] = useState(getInitialTheme);
 
-  const rawSetTheme = (rawTheme: string) => {
-    const root = window.document.documentElement;
-    let isDark = rawTheme === "dark";
+export const ThemeProvider = ({ children }: Props) => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    const storedTheme = localStorage.getItem("theme");
+    return (storedTheme as Theme) || "dark";
+  });
 
-    if (rawTheme === "system") {
-      isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-
-    root.classList.remove(isDark ? "light" : "dark");
-    root.classList.add(isDark ? "dark" : "light");
-
-    localStorage.setItem("color-theme", rawTheme);
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
   };
 
-  if (initialTheme) {
-    rawSetTheme(initialTheme);
-  }
-
   useEffect(() => {
-    rawSetTheme(theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <Theme appearance={theme}>
+        {children}
+        {/* <ThemePanel /> */}
+      </Theme>
     </ThemeContext.Provider>
   );
 };
