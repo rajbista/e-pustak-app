@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Theme, ThemePanel } from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
 import { createContext } from "react";
+
+import "@radix-ui/themes/styles.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 type Theme = "light" | "dark";
 interface ThemeContextType {
@@ -22,14 +25,17 @@ interface Props {
 
 export const ThemeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return (storedTheme as Theme) || "dark";
+    return typeof window !== "undefined"
+      ? (localStorage.getItem("theme") as Theme) || "dark"
+      : "dark";
   });
 
   const toggleTheme = () => {
     setTheme((prevTheme) => {
       const newTheme = prevTheme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", newTheme);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", newTheme);
+      }
       return newTheme;
     });
   };
@@ -40,7 +46,7 @@ export const ThemeProvider = ({ children }: Props) => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <Theme appearance={theme}>
+      <Theme accentColor="green" appearance={theme} radius="small">
         {children}
         {/* <ThemePanel /> */}
       </Theme>
