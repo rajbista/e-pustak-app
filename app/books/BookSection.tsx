@@ -1,3 +1,4 @@
+"use client";
 import { Book } from "@/app/hooks/useBook";
 import Slider from "react-slick";
 import BookCard from "./BookCard";
@@ -47,7 +48,6 @@ interface Props {
 }
 const BookSection = ({ books, title }: Props) => {
   const router = useRouter();
-
   return (
     <Container py="1">
       <Flex

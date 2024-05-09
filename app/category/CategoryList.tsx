@@ -2,7 +2,7 @@
 import useCategory from "../hooks/useCategory";
 
 const CategoryList = () => {
-  const { categories } = useCategory();
+  const { data: categories } = useCategory();
   return (
     <ul>
       {categories.map((category) => (
