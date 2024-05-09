@@ -1,10 +1,12 @@
 import { Book } from "@/app/hooks/useBook";
 import Slider from "react-slick";
 import BookCard from "./BookCard";
-import { Box, Button, Container, Flex, Heading } from "@radix-ui/themes";
+import { Container, Flex, Grid, Heading, IconButton } from "@radix-ui/themes";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 const settings = {
   className: "center",
-  slidesToShow: 5.5,
+  slidesToShow: 5.25,
   slidesToScroll: 5,
   infinite: false,
   arrows: false,
@@ -12,21 +14,28 @@ const settings = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 5.5,
+        slidesToShow: 4.25,
         slidesToScroll: 5,
       },
     },
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 4.5,
+        slidesToShow: 3.25,
         slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 520,
+      settings: {
+        slidesToShow: 3.25,
+        slidesToScroll: 2,
       },
     },
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 2.5,
+        slidesToShow: 2.25,
         slidesToScroll: 2,
       },
     },
@@ -37,16 +46,25 @@ interface Props {
   title: string;
 }
 const BookSection = ({ books, title }: Props) => {
+  const router = useRouter();
+
   return (
     <Container py="1">
-      <Flex justify="between" align="center" p="1">
-        <Heading color="gray" size="7" weight="medium">
+      <Flex
+        justify="between"
+        align="center"
+        p="1"
+        onClick={() => router.push("/books/list")}
+      >
+        <Heading size="5" weight="bold">
           {title}
         </Heading>
-        <Button variant="ghost">Show all</Button>
+        <IconButton variant="ghost" highContrast>
+          <ChevronRightIcon width="18" height="18" />
+        </IconButton>
       </Flex>
 
-      <Box py="1">
+      <Grid gap="2">
         {books?.length > 0 && (
           <Slider {...settings}>
             {books.map((book) => (
@@ -54,7 +72,7 @@ const BookSection = ({ books, title }: Props) => {
             ))}
           </Slider>
         )}
-      </Box>
+      </Grid>
     </Container>
   );
 };

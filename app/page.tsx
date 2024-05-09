@@ -1,15 +1,16 @@
-import { Grid } from "@radix-ui/themes";
-import BookGrid from "./components/Book/BookGrid";
-import BookContainer from "./components/Book/BookContainer";
+"use client";
+import { Flex } from "@radix-ui/themes";
+import BookSection from "./books/BookSection";
+import useBook from "./hooks/useBook";
 export default function Home() {
-  return (
-    <Grid columns={{ md: "12" }} gap="1">
-      <aside className="md:col-span-2">Aside</aside>
-      <main className="md:col-span-10">
-        {/* <BookGrid /> */}
+  const { books, isLoading, error } = useBook();
 
-        <BookContainer />
-      </main>
-    </Grid>
+  return (
+    <Flex direction="column" gap="2">
+      <BookSection title="Recommended" books={books} />
+      <BookSection title="Popular" books={books} />
+      <BookSection title="Newly Added" books={books} />
+      <BookSection title="Trending" books={books} />
+    </Flex>
   );
 }

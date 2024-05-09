@@ -1,10 +1,10 @@
 "use client";
 import useBook from "@/app/hooks/useBook";
-import BookSection from "./BookSection";
 import { Flex } from "@radix-ui/themes";
+import BookSection from "@/app/books/BookSection";
 
 const BookContainer = () => {
-  const { books, isLoading, error } = useBook();
+  const { books } = useBook();
   return (
     <Flex direction="column" gap="2">
       <BookSection title="Recommended" books={books} />
