@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 
 import "./globals.css";
 import { Grid } from "@radix-ui/themes";
+import CategoryList from "./category/CategoryList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,9 @@ export default function RootLayout({
         <ThemeProvider>
           <NavBar />
           <Grid columns={{ md: "12" }} gap="1">
-            <aside className="md:col-span-2">Aside</aside>
+            <aside className="md:col-span-2">
+              <CategoryList />
+            </aside>
             <main className="md:col-span-10">{children}</main>
           </Grid>
         </ThemeProvider>
