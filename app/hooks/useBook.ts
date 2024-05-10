@@ -1,12 +1,5 @@
 import useData from "./useData";
-import { Category } from "./useCategory";
-
-export interface Book {
-  id: string;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Category }[]
-}
+import { Book } from "../entities/Book";
 
 const useBook = () => useData<Book>('/games');
 

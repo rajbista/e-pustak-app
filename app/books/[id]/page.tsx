@@ -1,12 +1,19 @@
-import { notFound, useRouter } from "next/navigation";
+"use client";
+import useBookDetail from "@/app/hooks/useBookDetail";
+import { Box, Heading, Text } from "@radix-ui/themes";
 import React from "react";
 
 interface Props {
-  params: { id: number };
+  params: { id: string };
 }
 const BookDetailPage = ({ params: { id } }: Props) => {
-  if (id > 1100000) notFound();
-  return <div>Bookd ID: {id}</div>;
+  const { data: book }: { data: any } = useBookDetail(id);
+  return (
+    <Box p="5">
+      <Heading>{book?.name}</Heading>
+      <Text>{book?.description_raw}</Text>
+    </Box>
+  );
 };
 
 export default BookDetailPage;

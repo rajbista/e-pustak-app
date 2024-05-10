@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import QueryProvider from "./providers/QueryProvider";
+
 import NavBar from "./NavBar";
 
 import "./globals.css";
-import { Grid } from "@radix-ui/themes";
-import CategoryList from "./category/CategoryList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <NavBar />
-          {children}
+          <QueryProvider>
+            <NavBar />
+            {children}
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

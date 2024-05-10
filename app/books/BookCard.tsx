@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Card, Text, Heading, Box, Inset } from "@radix-ui/themes";
-import { Book } from "../hooks/useBook";
+import { Book } from "../entities/Book";
 import getCroppedImageUrl from "../services/image-url";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,7 +12,7 @@ interface Props {
 const BookCard = ({ book }: Props) => {
   const router = useRouter();
   return (
-    <Link href={"/books/" + book.id}>
+    <Link href={"/books/" + book.slug}>
       <Box mr="4">
         <Card variant="classic">
           <Box>
@@ -29,7 +29,7 @@ const BookCard = ({ book }: Props) => {
             <Heading size="3" color="gray" align="left" trim="both" truncate>
               {book.name}
             </Heading>
-            <Text>{book.id}</Text>
+            <Text>{book.slug}</Text>
           </Box>
         </Card>
       </Box>

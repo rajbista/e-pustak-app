@@ -9,7 +9,7 @@ interface FetchResponse<T> {
     results: T[];
 }
 
-const useCategory = <T>(endpoint: string) => {
+const useData = <T>(endpoint: string) => {
     const [data, setData] = useState<T[]>([]);
     const [error, setError] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const useCategory = <T>(endpoint: string) => {
         apiClient
             .get<FetchResponse<T>>(endpoint, { signal: controller.signal })
             .then((res) => {
-                setData(res.data.results);
+                setData(res.data?.results || res.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -30,9 +30,8 @@ const useCategory = <T>(endpoint: string) => {
             })
 
         return () => controller.abort();
-    }, []);
-
+    }, [endpoint]);
     return { data, isLoading, error };
 };
 
-export default useCategory;
+export default useData;

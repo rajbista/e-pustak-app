@@ -1,5 +1,5 @@
 "use client";
-import { Book } from "@/app/hooks/useBook";
+import { Book } from "../entities/Book";
 import Slider from "react-slick";
 import BookCard from "./BookCard";
 import { Container, Flex, Grid, Heading, IconButton } from "@radix-ui/themes";
