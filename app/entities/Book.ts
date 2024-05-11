@@ -1,4 +1,5 @@
 import { Category } from "./Category";
+import { Publisher } from "./Publisher";
 
 export interface Book {
     id: string;
@@ -7,4 +8,6 @@ export interface Book {
     background_image: string;
     parent_platforms: { platform: Category; }[];
     description_raw: string;
+    Publishers: Publisher[];
+    rating_top: number
 }

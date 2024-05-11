@@ -16,34 +16,32 @@ import {
 const NavBar = () => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <Box my="3" mx="2">
-      <Flex justify="between" align="center">
-        {/* <Image src="next.svg" width="100" height="80" alt="ePustak" /> */}
-        <Link href="/" className="mr-5">
-          ePustak
-        </Link>
-        <IconButton variant="surface" highContrast>
+    <Flex m="2" justify="between" align="center">
+      {/* <Image src="next.svg" width="100" height="80" alt="ePustak" /> */}
+      <Link href="/" className="mr-5">
+        ePustak
+      </Link>
+      {/* <IconButton variant="surface" highContrast>
           <MagnifyingGlassIcon width="18" height="18" />
-        </IconButton>
-        {/* <SearchInput /> */}
-        <Flex align="center" gapX="2">
-          <IconButton variant="ghost" highContrast>
-            <BellIcon width="18" height="18" />
-          </IconButton>
+        </IconButton> */}
+      <SearchInput />
+      <Flex align="center" gapX="2">
+        {/* <IconButton variant="ghost" highContrast>
+          <BellIcon width="18" height="18" />
+        </IconButton> */}
 
-          <IconButton variant="ghost" highContrast onClick={toggleTheme}>
-            {theme === "dark" ? (
-              <SunIcon width="18" height="18" />
-            ) : (
-              <MoonIcon width="18" height="18" />
-            )}
-          </IconButton>
-          <IconButton variant="ghost" highContrast>
-            <HamburgerMenuIcon width="24" height="24" />
-          </IconButton>
-        </Flex>
+        <IconButton variant="ghost" highContrast onClick={toggleTheme}>
+          {theme === "dark" ? (
+            <SunIcon width="18" height="18" />
+          ) : (
+            <MoonIcon width="18" height="18" />
+          )}
+        </IconButton>
+        <IconButton variant="ghost" highContrast>
+          <HamburgerMenuIcon width="24" height="24" />
+        </IconButton>
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 

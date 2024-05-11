@@ -8,19 +8,16 @@ interface Props {
   category: string;
 }
 const BookListPage = ({ category }: Props) => {
-  const { data: books, error } = useBook();
+  const { data: books } = useBook();
 
   return (
-    <>
-      {error && <Text>{error}</Text>}
-      <Grid
-        columns={{ initial: "2", xs: "3", sm: "4", md: "5", lg: "6", xl: "7" }}
-        gapY="4"
-      >
-        {books.length > 0 &&
-          books.map((book) => <BookCard key={book.id} book={book} />)}
-      </Grid>
-    </>
+    <Grid
+      columns={{ initial: "2", xs: "3", sm: "4", md: "5", lg: "6", xl: "7" }}
+      gapY="4"
+    >
+      {books.length > 0 &&
+        books.map((book) => <BookCard key={book.id} book={book} />)}
+    </Grid>
   );
 };
 
