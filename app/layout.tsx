@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <QueryProvider>
-            <NavBar />
+            {/* <NavBar /> */}
             <Grid columns={{ md: "12" }} gap="1">
               <aside className="md:col-span-2">{/* <CategoryList /> */}</aside>
               <main className="md:col-span-8"> {children}</main>

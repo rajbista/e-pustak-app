@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Card,
+  Container,
   Flex,
   Grid,
   Heading,
@@ -18,7 +19,6 @@ import {
   Strong,
   Text,
 } from "@radix-ui/themes";
-import React from "react";
 import getCroppedImageUrl from "@/app/services/image-url";
 import { useRouter } from "next/navigation";
 
@@ -47,8 +47,8 @@ const BookDetailContainer = ({ params: { id } }: Props) => {
   if (!book) return <p>Loading...</p>;
   else
     return (
-      <Flex direction="column" gap="3">
-        <Flex justify="between" align="center">
+      <Container>
+        <Flex justify="between">
           <IconButton
             variant="soft"
             radius="full"
@@ -62,55 +62,76 @@ const BookDetailContainer = ({ params: { id } }: Props) => {
           </IconButton>
         </Flex>
 
-        <Flex direction="column">
-          <Heading size="7">{book?.name}</Heading>
-          <Text>
-            by <Strong>{book.slug}</Strong>
-          </Text>
-          <Rating value={4.5}></Rating>
-        </Flex>
+        <Grid columns={{ sm: "12" }} gap="3">
+          <Flex
+            className="col-span-4"
+            direction="column"
+            align="center"
+            gap="2"
+          >
+            <Inset clip="border-box" side="top">
+              <Image
+                src={getCroppedImageUrl(book.background_image)}
+                alt={book.name}
+                width="256"
+                height="154"
+              />
+            </Inset>
+            <Flex justify="center" gap="2">
+              <Button variant="surface" radius="full">
+                Wishlist
+              </Button>
+              <Button
+                variant="surface"
+                radius="full"
+                onClick={() => router.push("/reader")}
+              >
+                Sample
+              </Button>
+            </Flex>
+            <Rating value={4.5} />
+          </Flex>
 
-        <Flex justify="center">
-          <Inset clip="border-box" side="top">
-            <Image
-              src={getCroppedImageUrl(book.background_image)}
-              alt={book.name}
-              width="256"
-              height="154"
-            />
-          </Inset>
-        </Flex>
+          <Box className="col-span-4">
+            <Flex direction="column" mb="3">
+              <Heading size="7">{book?.name}</Heading>
+              <Text>
+                by <Strong>{book.slug}</Strong>
+              </Text>
+            </Flex>
+            <ExpandableText>{book?.description_raw}</ExpandableText>
+          </Box>
 
-        <Flex direction="column" width={{ initial: "100vw", sm: "25vw" }}>
-          <RadioCards.Root defaultValue="1">
-            <RadioCards.Item value="1">
-              <Flex direction="column">
-                <Text weight="bold">eBook</Text>
-                <Text weight="bold">$4.99</Text>
-              </Flex>
-            </RadioCards.Item>
-            <RadioCards.Item value="2">
-              <Flex direction="column">
-                <Text weight="bold">Audiobook</Text>
-                <Text weight="bold">$9.99</Text>
-              </Flex>
-            </RadioCards.Item>
-          </RadioCards.Root>
-        </Flex>
-
-        <Flex direction="column" gap="2">
-          <Flex justify="between">
+          <Flex
+            className="col-span-4"
+            direction="column"
+            gap="3"
+            justify="center"
+          >
+            <RadioCards.Root defaultValue="1">
+              <Grid columns="2">
+                <RadioCards.Item value="1">
+                  <Flex direction="column">
+                    <Text weight="bold">eBook</Text>
+                    <Text weight="bold">$4.99</Text>
+                  </Flex>
+                </RadioCards.Item>
+                <RadioCards.Item value="2">
+                  <Flex direction="column">
+                    <Text weight="bold">Audiobook</Text>
+                    <Text weight="bold">$9.99</Text>
+                  </Flex>
+                </RadioCards.Item>
+              </Grid>
+            </RadioCards.Root>
             <Button variant="surface" radius="full">
-              Want to read
+              Add to cart
             </Button>
-            <Button variant="surface" radius="full">
-              Sample
+            <Button radius="full" onClick={() => router.push("/reader")}>
+              Read for $4.99
             </Button>
           </Flex>
-          <Button radius="full">Buy for $4.99</Button>
-        </Flex>
-
-        <ExpandableText>{book?.description_raw}</ExpandableText>
+        </Grid>
 
         <Card my="2">
           <Heading>Book Details</Heading>
@@ -120,7 +141,7 @@ const BookDetailContainer = ({ params: { id } }: Props) => {
             <DefinitionItem data={ids} />
           </Grid>
         </Card>
-      </Flex>
+      </Container>
     );
 };
 
