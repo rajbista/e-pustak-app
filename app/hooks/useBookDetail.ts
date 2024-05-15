@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { Book } from "../entities/Book";
 import apiClient from "../services/api-client";
 
 export interface BookDetail {

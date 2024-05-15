@@ -6,13 +6,13 @@ import React from "react";
 const BookDetailPage = () => {
   const details = [
     { label: "Published In", value: "Kathmandu, Nepal" },
-    { label: "Publish Date", value: 2020 },
+    { label: "Publish Date", value: "2020" },
     { label: "Language", value: "Nepali" },
   ];
 
   const detail = [
     { label: "Format", value: "Paperback" },
-    { label: "No of pages", value: 656 },
+    { label: "No of pages", value: "656" },
     { label: "Dimensions", value: "20 x 13 x 4.2" },
   ];
 
@@ -24,9 +24,17 @@ const BookDetailPage = () => {
     <Card my="2">
       <Heading>Book Details</Heading>
       <Grid gap="5" columns={{ initial: "1", sm: "2", md: "3" }}>
-        <DefinitionItem data={details} />
-        <DefinitionItem data={detail} />
-        <DefinitionItem data={ids} />
+        {details.map((d, i) => (
+          <DefinitionItem key={i} {...d} />
+        ))}
+
+        {detail.map((d, i) => (
+          <DefinitionItem key={i} {...d} />
+        ))}
+
+        {ids.map((d, i) => (
+          <DefinitionItem key={i} {...d} />
+        ))}
       </Grid>
     </Card>
   );

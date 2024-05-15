@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { ReactReader } from "react-reader";
-import { useTheme } from "../hooks/useTheme";
 interface Props {
   title: string;
 }
-const Reader = ({ title }: Props) => {
+const Reader = () => {
   const [location, setLocation] = useState<string | number>(0);
   return (
     <div style={{ height: "100vh" }}>
