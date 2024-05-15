@@ -4,11 +4,8 @@ import BookCard from "../BookCard";
 import { useBooks } from "@/app/hooks/useBook";
 import BackButton from "@/app/components/BackButton";
 
-interface Props {
-  category: string;
-}
-const BookListPage = ({ category }: Props) => {
-  const { data } = useBooks(category);
+const BookListPage = () => {
+  const { data } = useBooks();
 
   return (
     <>
