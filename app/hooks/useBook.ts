@@ -8,7 +8,7 @@ export const getBooks = async () => {
     return results as Book[];
 };
 
-export const useBooks = () => {
+export const useBooks = (category?: string) => {
     return useQuery({
         queryKey: ["books"],
         queryFn: getBooks,

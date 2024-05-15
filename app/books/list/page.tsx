@@ -8,7 +8,7 @@ interface Props {
   category: string;
 }
 const BookListPage = ({ category }: Props) => {
-  const { data } = useBooks();
+  const { data } = useBooks(category);
 
   return (
     <>
