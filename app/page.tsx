@@ -1,16 +1,24 @@
-"use client";
 import { Flex } from "@radix-ui/themes";
-import useBook from "./hooks/useBook";
 import BookSection from "./books/BookSection";
+import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { dehydrate } from "@tanstack/query-core";
+import { getBooks } from "./hooks/useBook";
 
-export default function Home() {
-  const { data: books } = useBook();
+export default async function Home() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["hydrate-users"],
+    queryFn: getBooks,
+  });
   return (
-    <Flex direction="column" gap="2">
-      <BookSection title="Recommended" books={books} />
-      <BookSection title="Popular" books={books} />
-      <BookSection title="Newly Added" books={books} />
-      <BookSection title="Trending" books={books} />
-    </Flex>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Flex direction="column" gap="2">
+        <BookSection title="Best seller" />
+        <BookSection title="Popular" />
+        <BookSection title="Newly Added" />
+        <BookSection title="Trending" />
+      </Flex>
+    </HydrationBoundary>
   );
 }

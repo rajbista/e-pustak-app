@@ -1,23 +1,27 @@
 "use client";
-import useBook from "../../hooks/useBook";
-
 import { Grid, Text } from "@radix-ui/themes";
 import BookCard from "../BookCard";
+import { useBooks } from "@/app/hooks/useBook";
+import BackButton from "@/app/components/BackButton";
 
 interface Props {
   category: string;
 }
 const BookListPage = ({ category }: Props) => {
-  const { data: books } = useBook();
+  const { data } = useBooks();
 
   return (
-    <Grid
-      columns={{ initial: "2", xs: "3", sm: "4", md: "5", lg: "6", xl: "7" }}
-      gapY="4"
-    >
-      {books.length > 0 &&
-        books.map((book) => <BookCard key={book.id} book={book} />)}
-    </Grid>
+    <>
+      <BackButton />
+      <Grid
+        columns={{ initial: "2", xs: "3", sm: "4", md: "5", lg: "6", xl: "7" }}
+        gapY="4"
+      >
+        {data?.map((book: any) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </Grid>
+    </>
   );
 };
 

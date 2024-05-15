@@ -1,19 +1,20 @@
-import { use } from "react";
-import useData from "./useData";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
 import { Category } from "../entities/Category";
 
-const useCategory = () => useData<Category>('/genres');
 
 
-// useQuery({
-//     queryKey: ['category'],
-//     queryFn: () => apiClient
-//         .get<Category[]>('/genres')
-//         .then(res => res.data)
-// })
+export const getCategory = async () => {
+    const { data: { results } } = await apiClient.get('/genres');
+    return results as Category[];
+};
 
-
+export const useCategory = () => {
+    return useQuery({
+        queryKey: ["category"],
+        queryFn: getCategory,
+        staleTime: 10 * 1000,
+    });
+}
 
 export default useCategory;

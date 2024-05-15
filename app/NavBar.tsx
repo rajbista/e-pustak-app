@@ -12,9 +12,12 @@ import {
   MoonIcon,
   SunIcon,
 } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import AccountPage from "./account/page";
 
 const NavBar = () => {
   const { theme, toggleTheme } = useTheme();
+  const router = useRouter();
   return (
     <Flex m="2" justify="between" align="center">
       {/* <Image src="next.svg" width="100" height="80" alt="ePustak" /> */}
@@ -30,14 +33,12 @@ const NavBar = () => {
           <BellIcon width="18" height="18" />
         </IconButton> */}
 
-        <IconButton variant="ghost" highContrast onClick={toggleTheme}>
-          {theme === "dark" ? (
-            <SunIcon width="18" height="18" />
-          ) : (
-            <MoonIcon width="18" height="18" />
-          )}
-        </IconButton>
-        <IconButton variant="ghost" highContrast>
+        
+        <IconButton
+          variant="ghost"
+          highContrast
+          onClick={() => router.push("/account")}
+        >
           <HamburgerMenuIcon width="24" height="24" />
         </IconButton>
       </Flex>

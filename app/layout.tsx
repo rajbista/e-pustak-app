@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "./providers/ThemeProvider";
-import QueryProvider from "./providers/QueryProvider";
+import ReactQueryProvider from "./providers/ReactQueryProvider";
 import { Grid } from "@radix-ui/themes";
 
 import NavBar from "./NavBar";
@@ -25,14 +25,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <QueryProvider>
-            {/* <NavBar /> */}
+          <ReactQueryProvider>
+            <NavBar />
             <Grid columns={{ md: "12" }} gap="1">
               <aside className="md:col-span-2">{/* <CategoryList /> */}</aside>
               <main className="md:col-span-8"> {children}</main>
               <aside className="md:col-span-2">{/* <CategoryList /> */}</aside>
             </Grid>
-          </QueryProvider>
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

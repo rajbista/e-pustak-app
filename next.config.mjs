@@ -2,6 +2,12 @@
 const nextConfig = {
   images: {
     domains: ["media.rawg.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "robohash.org",
+      },
+    ],
   },
 };
 

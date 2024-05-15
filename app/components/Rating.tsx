@@ -9,16 +9,16 @@ const Rating = ({ value }: { value: number }) => {
   const stars = [];
   for (let i = 0; i < fullStars; i++) {
     stars.push(
-      <IconButton variant="ghost" highContrast>
-        <StarFilledIcon width="18" height="18" />
+      <IconButton size="1" variant="ghost" highContrast key={i}>
+        <StarFilledIcon width="16" height="16" />
       </IconButton>
     );
   }
 
   for (let i = 0; i < emptyStars; i++) {
     stars.push(
-      <IconButton variant="ghost" highContrast>
-        <StarIcon width="18" height="18" />
+      <IconButton size="1" variant="ghost" highContrast key={i + 5}>
+        <StarIcon width="16" height="16" />
       </IconButton>
     );
   }

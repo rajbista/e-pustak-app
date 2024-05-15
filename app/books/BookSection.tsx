@@ -1,10 +1,10 @@
 "use client";
-import { Book } from "../entities/Book";
 import Slider from "react-slick";
 import BookCard from "./BookCard";
 import { Container, Flex, Grid, Heading, IconButton } from "@radix-ui/themes";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { useBooks } from "../hooks/useBook";
 const settings = {
   className: "center",
   slidesToShow: 5.25,
@@ -43,11 +43,12 @@ const settings = {
   ],
 };
 interface Props {
-  books: Book[];
   title: string;
 }
-const BookSection = ({ books, title }: Props) => {
+const BookSection = ({ title }: Props) => {
   const router = useRouter();
+  const { data } = useBooks();
+  if (!data?.length) return null;
   return (
     <Container py="1">
       <Flex
@@ -65,13 +66,13 @@ const BookSection = ({ books, title }: Props) => {
       </Flex>
 
       <Grid gap="2">
-        {books?.length > 0 && (
+        {
           <Slider {...settings}>
-            {books.map((book) => (
+            {data?.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}
           </Slider>
-        )}
+        }
       </Grid>
     </Container>
   );
